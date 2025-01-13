@@ -20,6 +20,14 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL(AppRouter.Login, req.url));
     }
 
+    if (pathname === "/" && user) {
+      return NextResponse.redirect(new URL(AppRouter.CreateTodo, req.url));
+    }
+
+    if (pathname === "/" && !user) {
+      return NextResponse.redirect(new URL(AppRouter.Login, req.url));
+    }
+
     return NextResponse.next();
   } catch (error) {
     console.error("Middleware error:", error);
@@ -28,5 +36,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/create-todo", "/login", "/signup"],
+  matcher: ["/create-todo", "/login", "/signup","/"],
 };

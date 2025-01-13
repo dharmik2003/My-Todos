@@ -158,7 +158,7 @@ export const TodoList = () => {
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       {loadingUser ? (
         <div className="min-h-screen w-full flex items-center justify-center gap-2">
-          <div className="pageloader !border-blue-500"></div>
+          <div className="pageloader"></div>
           <div className="text-xl text-[#690cbe]">Loading...</div>
         </div>
       ) : userData ? (
@@ -167,7 +167,9 @@ export const TodoList = () => {
           <div className="max-w-4xl mx-auto mt-5">
             {/* Add Todo Form */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-              <h2 className="text-2xl font-bold mb-6">Add New Todo</h2>
+              <h2 className="text-2xl font-bold mb-6 text-black">
+                Add New Todo
+              </h2>
               {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
               {success && (
                 <p className="text-green-500 text-sm mb-4">{success}</p>
@@ -200,11 +202,11 @@ export const TodoList = () => {
 
             {/* Todos Grid */}
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-2xl font-bold mb-6">My Todos</h2>
+              <h2 className="text-2xl font-bold mb-6 text-black">My Todos</h2>
               {loading ? (
                 <div className="flex items-center justify-center gap-2">
                   <div className="pageloader"></div>
-                  <div className="text-xl text-blue-200">Loading...</div>
+                  <div className="text-xl text-[#690cbe]">Loading...</div>
                 </div>
               ) : todos.length !== 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -247,7 +249,7 @@ export const TodoList = () => {
       ) : (
         <div className="min-h-screen w-full flex items-center justify-center gap-2">
           <div className="pageloader"></div>
-          <div className="text-xl text-blue-200">Loading...</div>
+          <div className="text-xl text-[#690cbe]">Loading...</div>
         </div>
       )}
     </div>
