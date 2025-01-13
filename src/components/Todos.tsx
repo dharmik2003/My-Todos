@@ -22,6 +22,15 @@ interface Task {
   updated_at: string;
 }
 
+interface Todo {
+  id: string;
+  title: string;
+  user_id: string;
+  description: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export const TodoList = () => {
   const [todoData, setTodoData] = useState({
     title: "",
@@ -34,7 +43,7 @@ export const TodoList = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingUser, setLoadingUser] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editTodoData, setEditTodoData] = useState<any>(null);
+  const [editTodoData, setEditTodoData] = useState<Todo | null>(null);
 
   const handleTodoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -181,7 +190,7 @@ export const TodoList = () => {
                   placeholder="Todo Title"
                   value={todoData.title}
                   onChange={handleTodoChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <input
                   type="text"
@@ -189,7 +198,7 @@ export const TodoList = () => {
                   placeholder="Todo Description"
                   value={todoData.description}
                   onChange={handleTodoChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 text-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <button
                   onClick={handleAddTodo}
@@ -250,6 +259,57 @@ export const TodoList = () => {
         <div className="min-h-screen w-full flex items-center justify-center gap-2">
           <div className="pageloader"></div>
           <div className="text-xl text-[#690cbe]">Loading...</div>
+        </div>
+      )}
+
+      {isModalOpen && editTodoData && (
+        <div className="fixed inset-0 bg-gray-700 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h2 className="text-2xl font-bold text-black mb-4">Edit Todo</h2>
+            {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+            <div className="space-y-4">
+              <input
+                type="text"
+                name="title"
+                placeholder="Todo Title"
+                value={editTodoData.title}
+                onChange={(e) =>
+                  setEditTodoData({
+                    ...editTodoData,
+                    title: e.target.value,
+                  })
+                }
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <input
+                type="text"
+                name="description"
+                placeholder="Todo Description"
+                value={editTodoData.description}
+                onChange={(e) =>
+                  setEditTodoData({
+                    ...editTodoData,
+                    description: e.target.value,
+                  })
+                }
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <div className="flex justify-between gap-3">
+                <button
+                  onClick={handleCancelEdit}
+                  className="bg-gray-300 w-full py-2 px-4 rounded-md"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleUpdateTodo}
+                  className="bg-blue-600 first-letter w-full text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200"
+                >
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

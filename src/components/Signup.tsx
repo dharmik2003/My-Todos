@@ -62,7 +62,7 @@ const Signup = () => {
               value={formData.name}
               onChange={handleChange}
               required
-              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-indigo-200"
+              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded  text-black focus:outline-none focus:ring focus:ring-indigo-200"
             />
           </div>
 
@@ -80,7 +80,7 @@ const Signup = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-indigo-200"
+              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded text-black focus:outline-none focus:ring focus:ring-indigo-200"
             />
           </div>
 
@@ -98,7 +98,7 @@ const Signup = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-indigo-200"
+              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded text-black focus:outline-none focus:ring focus:ring-indigo-200"
             />
           </div>
 
