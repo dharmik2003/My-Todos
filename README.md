@@ -15,7 +15,15 @@ A simple, responsive To-Do application built with Next.js, TypeScript (TSX), and
 ```bash
 https://my-todos-dharmiks-projects-b6578e6c.vercel.app/create-todo
 ```
+## Project Technologies
 
+- **Frontend**:  
+  - Next.js
+  - Typescript
+  - Tailwind CSS
+- **DataBase**:
+  - Supabase
+ 
 
 ## Getting Started
 
