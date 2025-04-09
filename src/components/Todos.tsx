@@ -4,6 +4,7 @@ import { addTodos, deleteTodo, fetchTodos, updateTodo } from "../actions/todo";
 import { Edit, X } from "lucide-react";
 import Header from "./Header";
 import { fetchUserData, getAuthenticatedUser } from "@/actions/users";
+import { LocalNotifications } from "@capacitor/local-notifications";
 
 interface UserDataProps {
   id: number;
@@ -44,6 +45,9 @@ export const TodoList = () => {
   const [loadingUser, setLoadingUser] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editTodoData, setEditTodoData] = useState<Todo | null>(null);
+  const [submitLoading, setSubmitLoading] = useState(false);
+
+  console.log("todos",todos)
 
   const handleTodoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -53,8 +57,8 @@ export const TodoList = () => {
   const handleAddTodo = async () => {
     setError(null);
     setSuccess(null);
-
     try {
+      setSubmitLoading(true);
       const response = await addTodos({
         ...todoData,
         user_id: userData?.user_id as string,
@@ -62,14 +66,17 @@ export const TodoList = () => {
       if (response) {
         setSuccess("Todo added successfully!");
         setTodoData({ title: "", description: "" });
+        setSubmitLoading(false);
         loadTodos();
       }
     } catch (err: any) {
+      setSubmitLoading;
       setError(err.message || "An unexpected error occurred.");
+    } finally {
+      setSubmitLoading(false);
     }
   };
 
-  console.log("userData", userData);
   const handleDeleteTodo = async (todoId: string) => {
     try {
       const response = await deleteTodo(todoId);
@@ -164,7 +171,7 @@ export const TodoList = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8 px-4">
+    <div className="min-h-screen bg-gray-100 py-4 sm:py-8 px-4">
       {loadingUser ? (
         <div className="min-h-screen w-full flex items-center justify-center gap-2">
           <div className="pageloader"></div>
@@ -202,9 +209,19 @@ export const TodoList = () => {
                 />
                 <button
                   onClick={handleAddTodo}
+                  disabled={
+                    !todoData.title || !todoData.description || submitLoading
+                  }
                   className="w-full bg-[#690cbe] text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200"
                 >
-                  Add Todo
+                  {submitLoading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="pageWhiteloader"></div>
+                      <div className="text-[#FFFFFF]">Adding...</div>
+                    </div>
+                  ) : (
+                    "Add Todo"
+                  )}
                 </button>
               </div>
             </div>
